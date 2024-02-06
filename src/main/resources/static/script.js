@@ -1,3 +1,11 @@
+function deklarerBillettObjekt() {
+    <!--erklærer billettobjekt, veit ikkje om trengs-->
+}
+
+function opprettBillettArray() {
+    let billettArray = []
+}
+
 <!--
 funksjonar:
 
