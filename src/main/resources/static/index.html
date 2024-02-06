@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+    <meta charset="UTF-8">
+    <title>data1700-oblig1-balin6546</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="script.js"></script>
+</head>
+<body>
+<h1>Bestilling av kinobilletter</h1>
+
+<form>
+    <label for="film">Velg film: </label>
+    <select id="film" name="film"> <!--onChange call validering at noko anna enn "" er valgt-->
+        <option value="">Velg film her</option>
+        <option value="film1">Film 1</option>
+        <option value="film2">Film 2</option>
+        <option value="film3">Film 3</option>
+    </select>
+    <br><br>
+
+    <label for="antall">Antall: </label>
+    <input type="number" id="antall" name="antall" min="1" max="99">
+    <br><br>
+
+    <table>
+        <tr>
+            <td>
+                <label for="fornavn">Fornavn: </label>
+            </td>
+            <td>
+                <input type="text" id="fornavn" name="fornavn"> <!--onChange kall navnvalidering-->
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="etternavn">Etternavn: </label>
+            </td>
+            <td>
+                <input type="text" id="etternavn" name="etternavn"> <!--onChange call navnvalidering-->
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="telefonnr">Telefonnr: </label>
+            </td>
+            <td>
+                <input type="tel" id="telefonnr" name="telefonnr"> <!--onChange call nummervalidering-->
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="epost">Epost: </label>
+            </td>
+            <td>
+                <input type="email" id="epost" name="epost"> <!--onChange call epost-validering-->
+            </td>
+        </tr>
+    </table>
+    <br>
+
+    <input type="submit" value="Kjøp billett"> <!--kalle på funksjon som oppdaterer array-->
+</form>
+
+<h2>Alle billetter</h2>
+
+<button>Slett alle billetter</button> <!--onclick="slettAlleBilletter()"-->
+
+</body>
+</html>
