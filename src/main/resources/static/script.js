@@ -1,19 +1,37 @@
-function deklarerBillettObjekt() {
-    <!--erklærer billettobjekt, veit ikkje om trengs-->
+let billettArray = []; //empty array on init
+
+let billett; //this is just a buffer object for temp storing before array push
+
+function lagNyBillett(){
+    billett = {
+        film: document.getElementById("film").value,
+        antall: document.getElementById("antall").value,
+        fornavn: document.getElementById("fornavn").value,
+        etternavn: document.getElementById("etternavn").value,
+        telefonnr: document.getElementById("telefonnr").value,
+        epost: document.getElementById("epost").value
+    }
 }
 
-function opprettBillettArray() {
-    let billettArray = []
+function lagreBillettIArray() {
+    billettArray.push(billett);
 }
 
-<!--
+function tomBestillingsSkjema() {
+    document.getElementById("bestillingsskjema").reset();
+}
+
+function kjopBillett(){
+    lagNyBillett();
+    lagreBillettIArray();
+    tomBestillingsSkjema();
+    console.log(billettArray); //only for debugging
+}
+
+
+
+/*
 funksjonar:
-
-    declareBillettObjekt
-    definerer billettobjekt med nødvendige attributtar
-
-    opprettBillettArray
-    oppretter tomt array av typen billett
 
     validerFilm
     sjekkar at bruker har valgt noko anna enn "velg film"
@@ -27,16 +45,9 @@ funksjonar:
     validerEpost
     sjekkar at epostfeltet er fylt og oppfyller krava til å være ein epost
 
-    opprettBillettObjekt
-    dersom alle inputs er gyldige, oppretter ein ny billett med verdiane fra inputs
-
-    leggTilBillettIArray
-    legger eit valgt billettobjekt til i bilettarrayet
-
     visBillettArray
     viser oppdatert array på sida
 
     nullstillBillettArray
     tømmer arrayet for alle objekt
-
--->
+*/

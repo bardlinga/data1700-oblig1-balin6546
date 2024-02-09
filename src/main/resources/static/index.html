@@ -6,10 +6,10 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <script type="text/javascript" src="script.js"></script>
 </head>
-<body onLoad="deklarerBillettObjekt();opprettBillettArray();">
+<body>
 <h1>Bestilling av kinobilletter</h1>
 
-<form>
+<form id="bestillingsskjema">
     <label for="film">Velg film: </label>
     <select id="film" name="film"> <!--onChange call validering at noko anna enn "" er valgt-->
         <option value="">Velg film her</option>
@@ -58,8 +58,7 @@
         </tr>
     </table>
     <br>
-
-    <input type="submit" value="Kjøp billett"> <!--kalle på funksjon som oppdaterer array-->
+    <button type="button" onClick="kjopBillett()" id="kjopKnapp">Kjøp billett</button>
 </form>
 
 <h2>Alle billetter</h2>
