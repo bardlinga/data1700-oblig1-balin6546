@@ -31,7 +31,10 @@
                 <label for="fornavn">Fornavn: </label>
             </td>
             <td>
-                <input type="text" id="fornavn" name="fornavn"> <!--onChange kall navnvalidering-->
+                <input onchange="validerFornavn()" type="text" id="fornavn" name="fornavn">
+            </td>
+            <td>
+                <label for="fornavn" class="errorMessage" id="fornavnUgyldigMelding">Feil</label>
             </td>
         </tr>
         <tr>
@@ -39,7 +42,10 @@
                 <label for="etternavn">Etternavn: </label>
             </td>
             <td>
-                <input type="text" id="etternavn" name="etternavn"> <!--onChange call navnvalidering-->
+                <input onchange="validerEtternavn()" type="text" id="etternavn" name="etternavn">
+            </td>
+            <td>
+                <label for="etternavn" class="errorMessage" id="etternavnUgyldigMelding">Feil</label>
             </td>
         </tr>
         <tr>
@@ -47,7 +53,10 @@
                 <label for="telefonnr">Telefonnr: </label>
             </td>
             <td>
-                <input type="tel" id="telefonnr" name="telefonnr"> <!--onChange call nummervalidering-->
+                <input onchange="validerTelefonnr()" type="tel" id="telefonnr" name="telefonnr">
+            </td>
+            <td>
+                <label for="telefonnr" class="errorMessage" id="telefonnrUgyldigMelding">Feil</label>
             </td>
         </tr>
         <tr>
@@ -55,7 +64,10 @@
                 <label for="epost">Epost: </label>
             </td>
             <td>
-                <input type="email" id="epost" name="epost"> <!--onChange call epost-validering-->
+                <input onchange="validerEpost()" type="email" id="epost" name="epost">
+            </td>
+            <td>
+                <label for="epost" class="errorMessage" id="epostUgyldigMelding">Feil</label>
             </td>
         </tr>
     </table>

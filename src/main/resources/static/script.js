@@ -2,16 +2,17 @@ let billettArray = []; //empty array on init
 
 let billett; //buffer object for temp storing of values before array push
 
-// input validation functions -------------------------------------------------
+// error message toggle function ------------------------------------------------------------------
 
-
-function toggleElementSynlighet(elementId, vis) { // show or hide input error messages
-    if (vis){
+function toggleElementSynlighet(elementId, visIsTrue) {
+    if (visIsTrue){
         document.getElementById(elementId).style.display = "inline";
     } else {
         document.getElementById(elementId).style.display = "none";
     }
 }
+
+// input validation functions ---------------------------------------------------------------------
 
 function validerFilm() {
     let film = document.getElementById("film").value;
@@ -29,8 +30,51 @@ function validerAntall() {
     return antallGyldig;
 }
 
+function validerFornavn() {
+    let fornavn = document.getElementById("fornavn").value;
+    let fornavnRGEX = /^[^0-9]+$/;
+    let fornavnGyldig = fornavn.length > 0 && fornavnRGEX.test(fornavn);
+    toggleElementSynlighet("fornavnUgyldigMelding",!fornavnGyldig);
+    return fornavnGyldig;
+}
+
+function validerEtternavn() {
+    let etternavn = document.getElementById("etternavn").value;
+    let etternavnRGEX = /^[^0-9]+$/;
+    let etternavnGyldig = etternavn.length > 0 && etternavnRGEX.test(etternavn);
+    toggleElementSynlighet("etternavnUgyldigMelding",!etternavnGyldig);
+    return etternavnGyldig;
+}
+
+function validerTelefonnr() {
+    let telefonnr = document.getElementById("telefonnr").value;
+    let telefonnrRGEX = /^[0-9]+$/;
+    let telefonnrGyldig = telefonnr.length > 0 && telefonnrRGEX.test(telefonnr);
+    toggleElementSynlighet("telefonnrUgyldigMelding",!telefonnrGyldig);
+    return telefonnrGyldig;
+}
+
+function validerEpost() {
+    let epost = document.getElementById("epost").value;
+    let epostRGEX = /^([a-å]?[0-9]?)+@([a-å]?[0-9]?)+.[a-å]+/;
+    let epostGyldig = epostRGEX.test(epost);
+    toggleElementSynlighet("epostUgyldigMelding",!epostGyldig);
+    return epostGyldig;
+}
+
 function validerSkjema() {
-    return validerFilm() && validerAntall();
+    let inputSjekkArray = [
+        validerFilm(),
+        validerAntall(),
+        validerFornavn(),
+        validerEtternavn(),
+        validerTelefonnr(),
+        validerEpost(),
+    ]
+    return !inputSjekkArray.includes(false);
+    // form validation done with bool array so all validation functions are
+    // called even if a 'false' appears early on. This is to give a complete
+    // update on error messages on which fields are in need of correction.
 }
 
 // ticket updating and storing functions --------------------------------------
@@ -55,25 +99,19 @@ function tomBestillingsSkjema() {
 
 // main functions -------------------------------------------------------------
 function kjopBillett(){
-    lagNyBillett();
-    lagreBillettIArray();
-    tomBestillingsSkjema();
-    console.log(billettArray); //only for debugging
+    if (validerSkjema())
+    {
+        lagNyBillett();
+        lagreBillettIArray();
+        tomBestillingsSkjema();
+        console.log(billettArray); //only for debugging
+    }
 }
 
 
 
 /*
 funksjonar:
-
-    validerNavn
-    sjekkar at navn er utfylt og berre inneheld bokstavar
-
-    validerNummer
-    sjekkar at nummer er fylt, er innanfor ein range og berre inneheld tall
-
-    validerEpost
-    sjekkar at epostfeltet er fylt og oppfyller krava til å være ein epost
 
     visBillettArray
     viser oppdatert array på sida
