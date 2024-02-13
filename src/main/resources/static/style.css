@@ -2,8 +2,13 @@ body {
     line-height: 1.2;
 }
 
-label {
+label,select {
     margin-right: 5px;
+}
+
+.errorMessage {
+    color: red;
+    display: none;
 }
 
 #antall {

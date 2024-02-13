@@ -1,7 +1,39 @@
 let billettArray = []; //empty array on init
 
-let billett; //this is just a buffer object for temp storing before array push
+let billett; //buffer object for temp storing of values before array push
 
+// input validation functions -------------------------------------------------
+
+
+function toggleElementSynlighet(elementId, vis) { // show or hide input error messages
+    if (vis){
+        document.getElementById(elementId).style.display = "inline";
+    } else {
+        document.getElementById(elementId).style.display = "none";
+    }
+}
+
+function validerFilm() {
+    let film = document.getElementById("film").value;
+    let filmRGEX = / /;
+    let filmGyldig = !filmRGEX.test(film);
+    toggleElementSynlighet("filmUgyldigMelding",!filmGyldig);
+    return filmGyldig;
+}
+
+function validerAntall() {
+    let antall = document.getElementById("antall").value;
+    let antallRGEX = /^[1-9][0-9]?$/;
+    let antallGyldig = antallRGEX.test(antall);
+    toggleElementSynlighet("antallUgyldigMelding",!antallGyldig)
+    return antallGyldig;
+}
+
+function validerSkjema() {
+    return validerFilm() && validerAntall();
+}
+
+// ticket updating and storing functions --------------------------------------
 function lagNyBillett(){
     billett = {
         film: document.getElementById("film").value,
@@ -21,6 +53,7 @@ function tomBestillingsSkjema() {
     document.getElementById("bestillingsskjema").reset();
 }
 
+// main functions -------------------------------------------------------------
 function kjopBillett(){
     lagNyBillett();
     lagreBillettIArray();
@@ -32,9 +65,6 @@ function kjopBillett(){
 
 /*
 funksjonar:
-
-    validerFilm
-    sjekkar at bruker har valgt noko anna enn "velg film"
 
     validerNavn
     sjekkar at navn er utfylt og berre inneheld bokstavar

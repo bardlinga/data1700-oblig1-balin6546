@@ -11,16 +11,18 @@
 
 <form id="bestillingsskjema">
     <label for="film">Velg film: </label>
-    <select id="film" name="film"> <!--onChange call validering at noko anna enn "" er valgt-->
-        <option value="">Velg film her</option>
+    <select onchange="validerFilm()" id="film" name="film">
+        <option value=" ">Velg film her</option>
         <option value="film1">Film 1</option>
         <option value="film2">Film 2</option>
         <option value="film3">Film 3</option>
     </select>
+    <label for="film" class="errorMessage" id="filmUgyldigMelding">Du må velge en film</label>
     <br><br>
 
     <label for="antall">Antall: </label>
-    <input type="number" id="antall" name="antall" min="1" max="99">
+    <input onchange="validerAntall()" type="number" id="antall" name="antall" min="1" max="99">
+    <label for="antall" class="errorMessage" id="antallUgyldigMelding">Du må velge et gyldig antall billetter</label>
     <br><br>
 
     <table>
