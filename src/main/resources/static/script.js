@@ -1,3 +1,5 @@
+// global variables -------------------------------------------------------------------------------
+
 let billettArray = []; //empty array on init
 
 let billett; //buffer object for temp storing of values before array push
@@ -53,22 +55,9 @@ function validerEpost() {
     return validerInput("epost", regExp.epost);
 }
 
-function validerSkjema() {
-    let inputSjekkArray = [
-        validerFilm(),
-        validerAntall(),
-        validerFornavn(),
-        validerEtternavn(),
-        validerTelefonnr(),
-        validerEpost(),
-    ]
-    return !inputSjekkArray.includes(false);
-    // form validation done with bool array so all validation functions are
-    // called even if a 'false' appears early on. This is to give a complete
-    // update on error messages on which fields are in need of correction.
-}
 
-// ticket updating and storing functions --------------------------------------
+// ticket updating and storing functions ----------------------------------------------------------
+
 function lagNyBillett(){
     billett = {
         film: document.getElementById("film").value,
@@ -88,7 +77,24 @@ function tomBestillingsSkjema() {
     document.getElementById("bestillingsskjema").reset();
 }
 
-// main functions -------------------------------------------------------------
+
+// main functions ---------------------------------------------------------------------------------
+
+function validerSkjema() {
+    let inputSjekkArray = [
+        validerFilm(),
+        validerAntall(),
+        validerFornavn(),
+        validerEtternavn(),
+        validerTelefonnr(),
+        validerEpost(),
+    ]
+    return !inputSjekkArray.includes(false);
+    // form validation done with bool array so all validation functions are
+    // called even if a 'false' appears early on. This is to give a complete
+    // update on error messages on which fields are in need of correction.
+}
+
 function kjopBillett(){
     if (validerSkjema())
     {
@@ -99,14 +105,4 @@ function kjopBillett(){
     }
 }
 
-
-
-/*
-funksjonar:
-
-    visBillettArray
-    viser oppdatert array på sida
-
-    nullstillBillettArray
-    tømmer arrayet for alle objekt
-*/
+// manglar: visBillettArray, resetBillettArray
