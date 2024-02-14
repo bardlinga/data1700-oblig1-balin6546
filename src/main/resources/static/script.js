@@ -14,52 +14,43 @@ function toggleElementSynlighet(elementId, visIsTrue) {
 
 // input validation functions ---------------------------------------------------------------------
 
+const regExp = {
+    film: /[^ ]/,
+    antall: /^[1-9][0-9]?$/,
+    navn: /^[^0-9]+$/,
+    telefonnr: /^[0-9]+$/,
+    epost: /^([a-å]?[0-9]?)+@([a-å]?[0-9]?)+.[a-å]+/
+}
+
+function validerInput(id, regExp) {
+    let input = document.getElementById(id).value;
+    let inputGyldig = regExp.test(input);
+    toggleElementSynlighet(id+"UgyldigMelding",!inputGyldig);
+    return inputGyldig;
+}
+
 function validerFilm() {
-    let film = document.getElementById("film").value;
-    let filmRGEX = / /;
-    let filmGyldig = !filmRGEX.test(film);
-    toggleElementSynlighet("filmUgyldigMelding",!filmGyldig);
-    return filmGyldig;
+    return validerInput("film", regExp.film);
 }
 
 function validerAntall() {
-    let antall = document.getElementById("antall").value;
-    let antallRGEX = /^[1-9][0-9]?$/;
-    let antallGyldig = antallRGEX.test(antall);
-    toggleElementSynlighet("antallUgyldigMelding",!antallGyldig)
-    return antallGyldig;
+    return validerInput("antall", regExp.antall);
 }
 
 function validerFornavn() {
-    let fornavn = document.getElementById("fornavn").value;
-    let fornavnRGEX = /^[^0-9]+$/;
-    let fornavnGyldig = fornavn.length > 0 && fornavnRGEX.test(fornavn);
-    toggleElementSynlighet("fornavnUgyldigMelding",!fornavnGyldig);
-    return fornavnGyldig;
+    return validerInput("fornavn", regExp.navn);
 }
 
 function validerEtternavn() {
-    let etternavn = document.getElementById("etternavn").value;
-    let etternavnRGEX = /^[^0-9]+$/;
-    let etternavnGyldig = etternavn.length > 0 && etternavnRGEX.test(etternavn);
-    toggleElementSynlighet("etternavnUgyldigMelding",!etternavnGyldig);
-    return etternavnGyldig;
+    return validerInput("etternavn", regExp.navn);
 }
 
 function validerTelefonnr() {
-    let telefonnr = document.getElementById("telefonnr").value;
-    let telefonnrRGEX = /^[0-9]+$/;
-    let telefonnrGyldig = telefonnr.length > 0 && telefonnrRGEX.test(telefonnr);
-    toggleElementSynlighet("telefonnrUgyldigMelding",!telefonnrGyldig);
-    return telefonnrGyldig;
+    return validerInput("telefonnr", regExp.telefonnr);
 }
 
 function validerEpost() {
-    let epost = document.getElementById("epost").value;
-    let epostRGEX = /^([a-å]?[0-9]?)+@([a-å]?[0-9]?)+.[a-å]+/;
-    let epostGyldig = epostRGEX.test(epost);
-    toggleElementSynlighet("epostUgyldigMelding",!epostGyldig);
-    return epostGyldig;
+    return validerInput("epost", regExp.epost);
 }
 
 function validerSkjema() {
