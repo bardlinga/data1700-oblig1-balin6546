@@ -14,3 +14,18 @@ label,select {
 #antall {
     width: 32px;
 }
+
+#billettListe th{
+    min-width: 80px;
+    text-align: left;
+}
+
+#billettListe th, td {
+    margin-left: 5px;
+    padding-right: 20px;
+    max-width: 150px;
+}
+
+#billettListe {
+    margin-bottom: 10px;
+}

@@ -2,7 +2,7 @@
 
 let billettArray = []; //empty array on init
 
-let billett; //buffer object for temp storing of values before array push
+let billett; //buffer object for temp storing of ticket values before array push
 
 // error message toggle function ------------------------------------------------------------------
 
@@ -21,7 +21,7 @@ const regExp = {
     antall: /^[1-9][0-9]?$/,
     navn: /^[^0-9]+$/,
     telefonnr: /^[0-9]+$/,
-    epost: /^([a-å]?[0-9]?)+@([a-å]?[0-9]?)+.[a-å]+/
+    epost: /^([a-å]?[0-9]?)+@([a-å]?[0-9]?)+.[a-å]+/ //probably horrible regexp
 }
 
 function validerInput(id, regExp) {
@@ -102,7 +102,34 @@ function kjopBillett(){
         lagreBillettIArray();
         tomBestillingsSkjema();
         console.log(billettArray); //only for debugging
+        printBillettArray();
     }
 }
 
-// manglar: visBillettArray, resetBillettArray
+function slettAlleBilletter() {
+    billettArray = [];
+    document.getElementById("billettListe").innerHTML = "";
+}
+
+// ticket array display functions -----------------------------------------------------------------
+
+function printBillettArray() {
+
+    let printTable = (
+        "<tr>" +
+        "<th>Film</th><th>Antall</th>" +
+        "<th>Navn</th><th>Etternavn</th>" +
+        "<th>Telefonnr</th><th>Epost</th>" +
+        "</tr>"
+    );
+    for (let i of billettArray) {
+        printTable += (
+            "<tr>" +
+            "<td>"+i.film+"</td><td>"+i.antall+"</td>" +
+            "<td>"+i.fornavn+"</td><td>"+i.etternavn+"</td>" +
+            "<td>"+i.telefonnr+"</td><td>"+i.epost+"</td>" +
+            "</tr>"
+        );
+    }
+    document.getElementById("billettListe").innerHTML = printTable;
+}
