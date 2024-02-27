@@ -6,12 +6,20 @@ let billett; //buffer object for temp storing of ticket values before array push
 
 // error message toggle function ------------------------------------------------------------------
 
-function toggleElementSynlighet(elementId, visIsTrue) {
-    if (visIsTrue){
-        document.getElementById(elementId).style.display = "inline";
+function toggleFeilmelding(id, ugyldigInput, feilmelding) {
+    if (ugyldigInput){
+        document.getElementById(id+"UgyldigMelding").innerHTML = feilmelding;
     } else {
-        document.getElementById(elementId).style.display = "none";
+        document.getElementById(id+"UgyldigMelding").innerHTML = "";
     }
+}
+
+const feilmelding = {
+    film: "Du må velge en film",
+    antall: "Du må velge et antall",
+    navn: "Du må skrive inn et navn, kan kun inneholde bokstaver",
+    telefonnr: "Du må skrive inn et telefonnummer, kan kun inneholde tall",
+    epost: "Du må skrive inn en gyldig epost-adresse"
 }
 
 // input validation functions ---------------------------------------------------------------------
@@ -26,33 +34,43 @@ const regExp = {
 
 function validerInput(id, regExp) {
     let input = document.getElementById(id).value;
-    let inputGyldig = regExp.test(input);
-    toggleElementSynlighet(id+"UgyldigMelding",!inputGyldig);
-    return inputGyldig;
+    return regExp.test(input);
 }
 
 function validerFilm() {
-    return validerInput("film", regExp.film);
+    let inputGyldig = validerInput("film", regExp.film);
+    toggleFeilmelding("film", !inputGyldig, feilmelding.film);
+    return inputGyldig;
 }
 
 function validerAntall() {
-    return validerInput("antall", regExp.antall);
+    let inputGyldig = validerInput("antall", regExp.antall);
+    toggleFeilmelding("antall", !inputGyldig, feilmelding.antall);
+    return inputGyldig;
 }
 
 function validerFornavn() {
-    return validerInput("fornavn", regExp.navn);
+    let inputGyldig = validerInput("fornavn", regExp.navn);
+    toggleFeilmelding("fornavn", !inputGyldig, feilmelding.navn);
+    return inputGyldig;
 }
 
 function validerEtternavn() {
-    return validerInput("etternavn", regExp.navn);
+    let inputGyldig = validerInput("etternavn", regExp.navn);
+    toggleFeilmelding("etternavn", !inputGyldig, feilmelding.navn);
+    return inputGyldig;
 }
 
 function validerTelefonnr() {
-    return validerInput("telefonnr", regExp.telefonnr);
+    let inputGyldig = validerInput("telefonnr", regExp.telefonnr);
+    toggleFeilmelding("telefonnr", !inputGyldig, feilmelding.telefonnr);
+    return inputGyldig;
 }
 
 function validerEpost() {
-    return validerInput("epost", regExp.epost);
+    let inputGyldig = validerInput("epost", regExp.epost);
+    toggleFeilmelding("epost", !inputGyldig, feilmelding.epost);
+    return inputGyldig;
 }
 
 

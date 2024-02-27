@@ -8,11 +8,14 @@ label,select {
 
 .errorMessage {
     color: red;
-    display: none;
 }
 
 #antall {
     width: 32px;
+}
+
+#personalia input {
+    width: 160px;
 }
 
 #billettListe th{
