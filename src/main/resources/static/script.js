@@ -1,18 +1,8 @@
-// global variables -------------------------------------------------------------------------------
+// empty array on init ----------------------------------------------------------------------------
 
-let billettArray = []; //empty array on init
+let billettArray = [];
 
-let billett; //buffer object for temp storing of ticket values before array push
-
-// error message toggle function ------------------------------------------------------------------
-
-function toggleFeilmelding(id, ugyldigInput, feilmelding) {
-    if (ugyldigInput){
-        document.getElementById(id+"UgyldigMelding").innerHTML = feilmelding;
-    } else {
-        document.getElementById(id+"UgyldigMelding").innerHTML = "";
-    }
-}
+// error message functions ------------------------------------------------------------------------
 
 const feilmelding = {
     film: "Du må velge en film",
@@ -20,6 +10,14 @@ const feilmelding = {
     navn: "Du må skrive inn et navn, kan kun inneholde bokstaver",
     telefonnr: "Du må skrive inn et telefonnummer, kan kun inneholde tall",
     epost: "Du må skrive inn en gyldig epost-adresse"
+}
+
+function toggleFeilmelding(id, ugyldigInput, feilmelding) {
+    if (ugyldigInput){
+        $('#'+id+'UgyldigMelding').html(feilmelding);
+    } else {
+        $('#'+id+'UgyldigMelding').html("");
+    }
 }
 
 // input validation functions ---------------------------------------------------------------------
@@ -32,101 +30,64 @@ const regExp = {
     epost: /^([a-å]?[0-9]?)+@([a-å]?[0-9]?)+.[a-å]+/ //probably horrible regexp
 }
 
-function validerInput(id, regExp) {
+function validerInput(id, regExp, feilmelding) {
     let input = document.getElementById(id).value;
-    return regExp.test(input);
-}
-
-function validerFilm() {
-    let inputGyldig = validerInput("film", regExp.film);
-    toggleFeilmelding("film", !inputGyldig, feilmelding.film);
+    let inputGyldig = regExp.test(input);
+    toggleFeilmelding(id, !inputGyldig, feilmelding);
     return inputGyldig;
 }
 
-function validerAntall() {
-    let inputGyldig = validerInput("antall", regExp.antall);
-    toggleFeilmelding("antall", !inputGyldig, feilmelding.antall);
-    return inputGyldig;
-}
+// onchange validation calls ----------------------------------------------------------------------
 
-function validerFornavn() {
-    let inputGyldig = validerInput("fornavn", regExp.navn);
-    toggleFeilmelding("fornavn", !inputGyldig, feilmelding.navn);
-    return inputGyldig;
-}
-
-function validerEtternavn() {
-    let inputGyldig = validerInput("etternavn", regExp.navn);
-    toggleFeilmelding("etternavn", !inputGyldig, feilmelding.navn);
-    return inputGyldig;
-}
-
-function validerTelefonnr() {
-    let inputGyldig = validerInput("telefonnr", regExp.telefonnr);
-    toggleFeilmelding("telefonnr", !inputGyldig, feilmelding.telefonnr);
-    return inputGyldig;
-}
-
-function validerEpost() {
-    let inputGyldig = validerInput("epost", regExp.epost);
-    toggleFeilmelding("epost", !inputGyldig, feilmelding.epost);
-    return inputGyldig;
-}
-
+$(document).ready(function () {
+    $('#film').change(function() {validerInput("film", regExp.film, feilmelding.film)});
+    $('#antall').change(function() {validerInput("antall", regExp.antall, feilmelding.antall)});
+    $('#fornavn').change(function(){validerInput("fornavn", regExp.navn, feilmelding.navn)});
+    $('#etternavn').change(function(){validerInput("etternavn", regExp.navn, feilmelding.navn)});
+    $('#telefonnr').change(function(){validerInput("telefonnr", regExp.telefonnr, feilmelding.telefonnr)});
+    $('#epost').change(function(){validerInput("epost", regExp.epost, feilmelding.epost)});
+});
 
 // ticket updating and storing functions ----------------------------------------------------------
 
 function lagNyBillett(){
-    billett = {
-        film: document.getElementById("film").value,
-        antall: document.getElementById("antall").value,
-        fornavn: document.getElementById("fornavn").value,
-        etternavn: document.getElementById("etternavn").value,
-        telefonnr: document.getElementById("telefonnr").value,
-        epost: document.getElementById("epost").value
-    }
+    return {
+        film: $('#film').val(),
+        antall: $('#antall').val(),
+        fornavn: $('#fornavn').val(),
+        etternavn: $('#etternavn').val(),
+        telefonnr: $('#telefonnr').val(),
+        epost: $('#epost').val()
+    };
 }
-
-function lagreBillettIArray() {
-    billettArray.push(billett);
-}
-
-function tomBestillingsSkjema() {
-    document.getElementById("bestillingsskjema").reset();
-}
-
 
 // main functions ---------------------------------------------------------------------------------
 
 function validerSkjema() {
     let inputSjekkArray = [
-        validerFilm(),
-        validerAntall(),
-        validerFornavn(),
-        validerEtternavn(),
-        validerTelefonnr(),
-        validerEpost(),
+        validerInput("film", regExp.film, feilmelding.film),
+        validerInput("antall", regExp.antall, feilmelding.antall),
+        validerInput("fornavn", regExp.navn, feilmelding.navn),
+        validerInput("etternavn", regExp.navn, feilmelding.navn),
+        validerInput("telefonnr", regExp.telefonnr, feilmelding.telefonnr),
+        validerInput("epost", regExp.epost, feilmelding.epost)
     ]
     return !inputSjekkArray.includes(false);
-    // form validation done with bool array so all validation functions are
-    // called even if a 'false' appears early on. This is to give a complete
-    // update on error messages on which fields are in need of correction.
 }
 
 function kjopBillett(){
     if (validerSkjema())
     {
-        lagNyBillett();
-        lagreBillettIArray();
-        tomBestillingsSkjema();
-        console.log(billettArray); //only for debugging
+        let billett = lagNyBillett();
+        billettArray.push(billett);
         printBillettArray();
+        document.getElementById('bestillingsskjema').reset();
     }
 }
 
 function slettAlleBilletter() {
     billettArray = [];
-    document.getElementById("billettListe").innerHTML = "";
+    $('#billettListe').html("");
 }
 
 // ticket array display functions -----------------------------------------------------------------
@@ -149,5 +110,5 @@ function printBillettArray() {
             "</tr>"
         );
     }
-    document.getElementById("billettListe").innerHTML = printTable;
+    $('#billettListe').html(printTable);
 }
